@@ -13,14 +13,23 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        rxDefer()
+        rxFromFunc()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func rxDefer() {
+    func rxFromFunc() {
+        let disposeBag = DisposeBag()
+        let testArry = ["0", "1", "2", "3", "4", "5"]
+        
+        Observable.from(testArry)
+            .subscribe(onNext:{print($0)})
+            .disposed(by: disposeBag)
+    }
+    
+    func rxDeferFunc() {
         let disposeBag = DisposeBag()
         var count = 1
         let deferredSequence = Observable<String>.deferred { () -> Observable<String> in
