@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        publishSubjectFunc()
-        behaviorSubjectFunc()
+//        behaviorSubjectFunc()
+        replaySubjectFunc()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +31,7 @@ class ViewController: UIViewController {
     }
     
     func publishSubjectFunc() {
+        let disposeBag = DisposeBag()
         let publishSubject = PublishSubject<String>()
         publishSubject.subscribe { (event) in
             print(event)
@@ -43,6 +45,7 @@ class ViewController: UIViewController {
     }
     
     func behaviorSubjectFunc() {
+        let disposeBag = DisposeBag()
         let behaviorSubject = BehaviorSubject(value: "init value")
         behaviorSubject.subscribe { (event) in
             print(event)
@@ -55,6 +58,16 @@ class ViewController: UIViewController {
         behaviorSubject.onCompleted()
     }
     
-
+    func replaySubjectFunc() {
+        let disposeBag = DisposeBag()
+        var replaySubject = ReplaySubject<String>.create(bufferSize: 2)
+        replaySubject.onNext("before subscribe first value")
+        replaySubject.onNext("before subscribe second value")
+        replaySubject.subscribe { (event) in
+            print(event)
+        }
+        replaySubject.onNext("first value")
+        replaySubject.onCompleted()
+    }
 }
 
