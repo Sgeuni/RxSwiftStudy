@@ -13,7 +13,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        publishSubjectFunc()
+//        publishSubjectFunc()
+        behaviorSubjectFunc()
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,6 +40,19 @@ class ViewController: UIViewController {
         publishSubject.onError(NSError(domain: "", code:1, userInfo: nil))
         publishSubject.onNext("after Error")
         publishSubject.onCompleted()
+    }
+    
+    func behaviorSubjectFunc() {
+        let behaviorSubject = BehaviorSubject(value: "init value")
+        behaviorSubject.subscribe { (event) in
+            print(event)
+        }
+        
+        behaviorSubject.onNext("first value")
+        behaviorSubject.onNext("second value")
+        behaviorSubject.onError(NSError(domain: "", code:1, userInfo: nil))
+        behaviorSubject.onNext("after Error")
+        behaviorSubject.onCompleted()
     }
     
 
