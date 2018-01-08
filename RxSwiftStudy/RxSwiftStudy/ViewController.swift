@@ -13,13 +13,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.stringSequence()
-//        self.intArraySequence()
-//        self.dicSequence()
         
-        rxTestObservable(element: [1,2,3,4,5]).subscribe({ (n) in
-            print(n)
-        })
+//        rxTestObservable(element: [1,2,3,4,5]).subscribe({ (n) in
+//            print(n)
+//        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,26 +31,19 @@ class ViewController: UIViewController {
         })
     }
     
-//    func stringSequence() {
-//        let stringSequence = Observable.just("test string")
-//        stringSequence.subscribe { (event: Event<String>) in
-//            print(event)
-//        }
-//    }
-//
-//    func intArraySequence() {
-//        let arraySequence = Observable.from([1,2,3,4,5])
-//        arraySequence.subscribe { (event: Event<Int>) in
-//            print(event)
-//        }
-//    }
-//
-//    func dicSequence() {
-//        let dicSequence = Observable.from([1:"Rx", 2:"Swift"])
-//        dicSequence.subscribe { (event: Event<(key:Int, value:String)>) in
-//            print(event)
-//        }
-//    }
+    func publicSubjectFunc() {
+        let publishSubject = PublishSubject<String>()
+        publishSubject.subscribe { (event) in
+            print(event)
+        }
+        
+        publishSubject.onNext("first value")
+        publishSubject.onNext("second value")
+        publishSubject.onError(NSError(domain: "", code:1, userInfo: nil))
+        publishSubject.onNext("after Error")
+        publishSubject.onCompleted()
+    }
+    
 
 }
 
