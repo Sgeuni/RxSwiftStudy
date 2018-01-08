@@ -13,21 +13,35 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print((1...10)
-            .filter({
-                $0 % 2 == 0
-            })
-            .map({
-                $0 * 10
-                
-            })
-            .reduce(0) {$0 + $1})
+        self.stringSequence()
+        self.intArraySequence()
+        self.dicSequence()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
+    func stringSequence() {
+        let stringSequence = Observable.just("test string")
+        stringSequence.subscribe { (event: Event<String>) in
+            print(event)
+        }
+    }
+    
+    func intArraySequence() {
+        let arraySequence = Observable.from([1,2,3,4,5])
+        arraySequence.subscribe { (event: Event<Int>) in
+            print(event)
+        }
+    }
+    
+    func dicSequence() {
+        let dicSequence = Observable.from([1:"Rx", 2:"Swift"])
+        dicSequence.subscribe { (event: Event<(key:Int, value:String)>) in
+            print(event)
+        }
+    }
 
 }
 
