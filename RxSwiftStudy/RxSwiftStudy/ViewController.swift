@@ -13,10 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        rxTestObservable(element: [1,2,3,4,5]).subscribe({ (n) in
-//            print(n)
-//        })
+        publishSubjectFunc()
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,7 +28,7 @@ class ViewController: UIViewController {
         })
     }
     
-    func publicSubjectFunc() {
+    func publishSubjectFunc() {
         let publishSubject = PublishSubject<String>()
         publishSubject.subscribe { (event) in
             print(event)
