@@ -13,11 +13,30 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        rxDefer()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func rxDefer() {
+        let disposeBag = DisposeBag()
+        var count = 1
+        let deferredSequence = Observable<String>.deferred { () -> Observable<String> in
+            print("\(count) 번째")
+            count = count + 1
+            
+            return Observable.create({ (observer) -> Disposable in
+                print("Emitting ... ")
+                observer.onNext("next")
+                return Disposables.create()
+            })
+        }
+        
+        // 아래 주석시 아무 반응이 없음, (defer는 subscribe해야 호출하는 Observable)
+        deferredSequence.subscribe(onNext:{print($0)}).disposed(by: disposeBag)
+        deferredSequence.subscribe(onNext:{print($0)}).disposed(by: disposeBag)
     }
     
     func rxCreateObservable<E>(element: E) -> Observable<E> {
