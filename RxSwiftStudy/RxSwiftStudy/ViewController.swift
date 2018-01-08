@@ -13,16 +13,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        publishSubjectFunc()
-//        behaviorSubjectFunc()
-        replaySubjectFunc()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func rxTestObservable<E>(element: E) -> Observable<E> {
+    func rxCreateObservable<E>(element: E) -> Observable<E> {
         return Observable.create({ observer -> Disposable in
             observer.on(.next(element))
             observer.on(.completed)
